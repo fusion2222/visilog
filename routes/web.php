@@ -14,3 +14,4 @@
 Route::get('/', 'Monitor@record');
 Route::get('/monitor', 'Monitor@page');
 Route::get('/data', 'Monitor@data')->name('data');
+Route::get('/delete', 'Monitor@delete')->name('delete');

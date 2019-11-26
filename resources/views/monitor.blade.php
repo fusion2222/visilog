@@ -44,11 +44,24 @@
                 display: inline-block;
                 padding: 0 15px;
             }
+            .delete-button{
+                padding: 15px;
+                margin-bottom: 10px;
+                background-color: #636b6f;
+                border: 0;
+                color: white;
+                border-radius: 25px;
+                cursor: pointer;
+            }
+            .delete-button:hover{
+                background-color: #3d4042;
+            }
         </style>
     </head>
     <body>
         <div class="content">
             <h1>{{ env('APP_NAME') }}</h1>
+            <button class="delete-button js-delete">Delete</button>
             <ul class="log-list js-log-list"></ul>
         </div>
 
@@ -58,7 +71,10 @@
                 TIMEOUT: 2000,
 
                 DATA_URL: @json(route('data', [], false)),
+                DELETE_URL: @json(route('delete', [], false)),
+
                 CLASS_LOG_LIST: 'js-log-list',
+                CLASS_DELETE_BUTTON: 'js-delete',
                 EVENT_REFRESH: new Event('refresh'),
                 EVENT_PURGE: new Event('purge'),
 
@@ -123,6 +139,13 @@
                             this.removeChild(this.firstChild);
                         }
                     });
+
+                    document.getElementsByClassName(this.CLASS_DELETE_BUTTON)[0].onclick = function(){
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', App.DELETE_URL, true);
+                        xhr.send();
+                    };
+
                 },
                 init: function(){
                     this.log_list = document.getElementsByClassName(this.CLASS_LOG_LIST)[0];

@@ -23,4 +23,8 @@ class Monitor extends Controller{
 		$limit = (int)$request->query()['limit'] ?? 10;
     	return Visit::orderBy('created_at', 'desc')->limit($limit)->get();
     }
+
+    public function delete(Request $request){
+    	return Visit::truncate();
+    }
 }
